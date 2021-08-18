@@ -1,1 +1,152 @@
-# cse-340---principles-of-programming-language
+The goal of this project is to give you hands-on experience with lexical analysis. You will extend the provided lexical analyzer to support more token types. The next section lists all new token types that you need to implement.
+
+
+1. Token Types
+Modify the lexer to support the following 3 token types:
+
+REALNUM   = NUM DOT digit digit*
+BASE08NUM = ((pdigit8 digit8*) + 0) (x) (08) 
+BASE16NUM = ((pdigit16 digit16*) + 0) (x) (16)
+
+Where
+
+digit16  = 0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + A + B + C + D + E + F 
+pdigit16 = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + A + B + C + D + E + F 
+digit    = 0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9
+pdigit   = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 
+digit8   = 0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 
+pdigit8  = 1 + 2 + 3 + 4 + 5 + 6 + 7
+
+Note that  NUM  and  DOT  are already defined in the lexer, but here are the regular expressions for the sake of completeness:
+
+NUM = (pdigit digit*) + 0
+DOT = '.'
+
+Note that  DOT  is a single dot character, the quotes are used to avoid ambiguity. 
+The list of valid tokens including the existing tokens in the code would be as follows:
+
+IF 
+WHILE 
+DO 
+THEN 
+PRINT 
+PLUS 
+MINUS 
+DIV 
+MULT 
+EQUAL 
+COLON 
+COMMA
+SEMICOLON 
+LBRAC 
+RBRAC 
+LPAREN 
+RPAREN 
+NOTEQUAL 
+GREATER 
+LESS
+LTEQ 
+GTEQ 
+DOT 
+NUM 
+ID
+REALNUM 
+BASE08NUM 
+BASE16NUM
+
+This list should be used to determine the token if the input matches more than one regular expression. 
+
+Follow these steps:
+
+1. Download the  lexer.cc ,  lexer.h ,  inputbuf.cc   and  inputbuf.h  files accompanying this project description. Note that these files might be a little     different than the code you've seen in class or 
+elsewhere.
+
+2. Add your code to the files to support the token types listed in the 
+previous section.
+
+3. Compile your code using GCC compiler in Ubuntu 19.04 or higher . You will need to use the  g++  command to compile your code in a terminal window.
+
+Note that you are required to compile and test your code in Ubuntu 19.04 or higher using the GCC compilers. You are free to use any IDE or text editor on any platform, however, using tools available in Ubuntu 19.04 g++ version 4.9 (or tools that you could install on Ububntu 19.04 could save time in the development/compile/test cycle. See next section for more details on how to compile using GCC.
+
+4. Test your code to see if it passes the provided test cases. You will need to extract the test cases from the zip file and run the test script  test1.sh . More details on this in the next section.
+
+5. Submit your code in canvas before the deadline:
+
+For this project you  need to update lexer.cc and lexer.h. The updates that you need to do in lexer.h are minimal and are already implemented in the submission  website. So you do not  need to   upload the lexer.h file in  CANVAS. But you still do need to update lexer.h if you want to compile locally. 
+
+
+3.1 Compiling Code with GCC
+
+You should compile your programs with the GCC compilers which are available in g++ 4.9 in Ubuntu 19.04. The GCC is a collection of compilers for many programming languages. There are separate commands for compiling C and C++ programs:
+
+Use  gcc  command to compile C programs
+
+Use  g++  to compile C++ programs
+
+Here is an example of how to compile a simple C++ program:
+
+$ g++ test_program.cpp
+
+If the compilation is successful, gcc will generate an executable file named  a.out  in the same folder as the program. You can change the output file name by specifying the  -o  switch:
+
+$ g++ test_program.cpp -o hello.out
+
+To enable all warning messages of the GCC compiler, use the -Wall
+switch:
+
+$ g++ -Wall test_program.cpp -o hello.out
+
+The same options can be used with  gcc  to compile C programs.
+
+Compiling projects with multiple files
+
+If your program is written in multiple source files that should be linked together, you can compile and link all files together with one command:
+
+$ g++ file1.cpp file2.cpp file3.cpp
+
+Or you can compile them separately and then link:
+
+$ g++ -c file1.cpp
+$ g++ -c file2.cpp
+$ g++ -c file3.cpp
+$ g++ file1.o file2.o file3.o 
+The files with the  .o  extension are object files but are not executable. They are linked together with the last statement and the final executable will be  a.out .
+
+NOTE: you can replace  g++  with  gcc  in all examples listed above to compile C programs.
+
+
+3.2 Testing your code with I/O Redirection
+
+Your programs should not explicitly open any file. You can only use the standard input e.g.  std::cin  in C++,  getchar() ,  scanf()  in C and standard output e.g.  std::cout  in C++,  putchar() ,  printf()  in C for
+input/output.
+
+However, this restriction does not limit our ability to feed input to the program from files nor does it mean that we cannot save the output of the program in a file. We use a technique called standard IO redirection to achieve this.
+
+Suppose we have an executable program  a.out , we can run it by issuing the following command in a terminal (the dollar sign is not part of the command):
+
+$ ./a.out
+
+If the program expects any input, it waits for it to be typed on the keyboard and any output generated by the program will be displayed on the terminal screen.
+
+Now to feed input to the program from a file, we can redirect the standard input to a file:
+
+$ ./a.out < input_data.txt
+
+Now, the program will not wait for keyboard input, but rather read its input from the specified file. We can redirect the output of the program as well:
+
+$ ./a.out > output_file.txt
+
+
+In this way, no output will be shown in the terminal window, but rather it will be saved to the specified file. Note that programs have access to another standard interface which is called standard error e.g. std::cerr  in C++,  fprintf(stderr, ...)  in C. Any such output is still 
+displayed on the terminal screen. However, it is possible to redirect standard error to a file as well, but we will not discuss that here.
+
+Finally, it's possible to mix both into one command:
+
+
+$ ./a.out < input_data.txt > output_file.txt
+
+
+Which will redirect standard input and standard output to  input_data.txt
+and  output_file.txt  respectively.
+
+Now that we know how to use standard IO redirection, we are ready to test the program with test cases.
