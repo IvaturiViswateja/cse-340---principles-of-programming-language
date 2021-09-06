@@ -1,4 +1,4 @@
-The goal of this project is to give you hands-on experience with lexical analysis. You will extend the provided lexical analyzer to support more token types. The next section lists all new token types that you need to implement.
+The goal is with lexical analysis. You will extend the provided lexical analyzer to support more token types. The next section lists all new token types that you need to implement.
 
 
 1. Token Types
