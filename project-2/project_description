@@ -1,6 +1,5 @@
-The goal of this project is to give you experience in writing a top-down recursive descent parser and to get introduced to the basics of symbol tables for nested scopes.
+writing a top-down recursive descent parser and to get introduced to the basics of symbol tables for nested scopes.
 We begin by introducing the grammar of our language. Then we will discuss the semantics of our language that involves lexical scoping rules and name resolution. Finally we will go over a few examples and formalize the expected output.
-NOTE: This project is significantly more involved than the first project. You should start on it immediately. For Monday, I expect that you have read the project description completely at least a couple times and maybe started on your parser.
 
 1.	Lexical Specification
 
